@@ -18,7 +18,7 @@ crp2:
 	rm crp2
 
 crp3:
-	@echo "Should produce some human text"
+	@echo "Should produce: Cooking MC's like a pound of bacon"
 	gcc $(CFLAGS) -o crp3 crp3.c
 	./crp3
 	rm crp3

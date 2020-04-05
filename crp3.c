@@ -16,39 +16,33 @@
 #include <stdlib.h>
 #include "crplib.c"
 
-int sbx(int len, char key, char * a, char * out){
-	int i = 0;
-	for (;i<len;i++){
-		out[i] = a[i] ^ key;
-	}
-	return i;
-}
-
 int main(){
 	char * hexin = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
 	printf("hexin= %si\n", hexin);
 	//size_t size_hexin =sizeof(hexin[0]) / sizeof(char);
-	size_t size_hexin = 40 ; //sizeof(hexin[0]) / sizeof(char);
-	char *in = malloc(size_hexin);
-	char *out = malloc(size_hexin);
-	printf("::xx::%ld\n",size_hexin);
+	size_t size_hexin = 68 ;
+	size_t size_str = size_hexin / 2;
+	char *in = malloc(size_str);
+	char *out = malloc(size_str);
 	hstrtob(size_hexin,hexin,in);
 
-	//my_pprint(size_hexin/2,"in:",in);
-
-	int space = 128; // unsure if 128 or 256
-	//int space = 256; // unsure if 128 or 256
-	int c = -120;
+	int space = 128;
+	//int c = 0;
+	int c = -127;
 	int rate = 0;
+	int top = 0;
+	char top_key = 0;
 
 	for (;c<=space;c++){
-		//printf("[c(%d)]\n",c);
-		sbx(size_hexin,c,in,out);
-		//printf("::%s",out);
-		//my_pprint(size_hexin/2," [0]",out);
-		//my_pprint2(size_hexin/2," [2]",out);
-		rate = human_rate(size_hexin, out);
-		printf("rate: %d", rate);
-		my_pprint3(size_hexin," [2]",out);
+		sbx(size_str,c,in,out);
+		rate = human_rate(size_str, out);
+		if (rate > top){
+			top = rate;
+			top_key = c;}
+		my_pprint3(size_str,"[try]",out);
 	}
+	printf("Top rate:      %d\n",top);
+	printf("Top key:       %d\n", top_key);
+	sbx(size_str, top_key, in, out);
+	printf("Top plaintext: %s\n", out);
 }
