@@ -12,11 +12,13 @@ crp1:
 	rm crp1
 
 crp2:
+	@echo "Should produce: 746865206b696420646f6e277420706c6179"
 	gcc $(CFLAGS) -o crp2 crp2.c
 	./crp2
 	rm crp2
 
 crp3:
+	@echo "Should produce some human text"
 	gcc $(CFLAGS) -o crp3 crp3.c
 	./crp3
 	rm crp3
