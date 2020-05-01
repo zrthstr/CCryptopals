@@ -26,9 +26,8 @@ int main(){
 	char *out = malloc(size_str);
 	hstrtob(size_hexin,hexin,in);
 
-	int space = 128;
-	//int c = 0;
-	int c = -127;
+	int space = 256;
+	int c = 0;
 	int rate = 0;
 	int top = 0;
 	char top_key = 0;
