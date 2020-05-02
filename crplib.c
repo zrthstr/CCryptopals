@@ -9,52 +9,41 @@ int sbx(int len, char key, char * a, char * out){
 	return i;
 }
 
+
+/// TODO: rewirte as case with range
 int hchar_val(char i){
 	if (i >= '0' && i <= '9'){return i - '0';}
 	else if (i >= 'a' && i <= 'f'){return i - 'a' + 10;}
-	else {printf("error in hchar_val"); return -1;}
+	else {printf("error in hchar_val\n"); return -1;}
 }
 
 int hstrtob (int n, char *hstr, char *to){
 	int i = 0;
 	int c = 0;
-	//char this = 0;
 	for (;i<n;i++){
 		char this;
 		this = hchar_val( hstr[i]) * 16 ;
+		if (this == -1){
+			printf("error in hchar_val\n");
+			return -1;
+			}
 		++i;
-		to[c] = this + hchar_val(hstr[i]);
+		int hchar = hchar_val(hstr[i]);
+		if (hchar == -1){
+			printf("error in hchar_val\n");
+			return -1;
+		}
+		to[c] = this + hchar;
 		++c;
 	}
 	return c;
 }
 
 
-/*
-h	6.094%	
-r	5.987%	
-d	4.253%	
-l	4.025%	
-u	2.758%	
-w	2.560%	
-m	2.406%	
-f	2.228%	
-c	2.202%	
-g	2.015%	
-y	1.994%	
-p	1.929%	
-b	1.492%	
-k	1.292%	
-v	0.978%	
-j	0.153%	
-x	0.150%	
-q	0.095%	
-z	0.077%	
-*/
-
 
 int human_rate_c(char c){
 	//printf("looking at %c",c);
+	//printf("looking at %c, %d",c,c);
 	switch (c){
 		case ' ':
 			return 1300;
@@ -76,10 +65,47 @@ int human_rate_c(char c){
 			return 609;
 		case 'r':
 			return 598;
+		case 'd':
+			return 425;
+		case 'l':
+			return 492;
+		case 'u':
+			return 275;
+		case 'w':
+			return 256;
+		case 'm':
+			return 240;
+		case 'f':
+			return 222;
+		case 'c':
+			return 220;
+		case 'g':
+			return 201;
+		case 'y':
+			return 199;
+		case 'p':
+			return 192;
+		case 'b':
+			return 149;
+		case 'k':
+			return 129;
+		case 'v':
+			return 97;
+		//case   0 ...  30:
+		//	return -1000;
+		case -127 ... 30:
+			return -300;
 		default :
-			return 1;
+			return 0;
 	}
 }
+
+/*
+j	0.153%	
+x	0.150%	
+q	0.095%	
+z	0.077%	
+*/
 
 int human_rate(int len, char * str){
 	int score = 0;

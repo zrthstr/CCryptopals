@@ -38,6 +38,7 @@ int main(){
 		if (rate > top){
 			top = rate;
 			top_key = c;}
+		printf("%d:",rate);
 		my_pprint3(size_str,"[try]",out);
 	}
 	printf("Top rate:      %d\n",top);
